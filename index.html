@@ -1,1 +1,627 @@
-rascunho
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ferramentas Estratégicas</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue-deep: #050d1a;
+    --blue-mid: #0a1a35;
+    --blue-steel: #0d2a4a;
+    --blue-metal: #1a3a6a;
+    --blue-neon: #00b4ff;
+    --blue-neon-bright: #00d4ff;
+    --blue-neon-glow: #0088cc;
+    --white: #ffffff;
+    --white-dim: rgba(255,255,255,0.75);
+    --white-faint: rgba(255,255,255,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--blue-deep);
+    font-family: 'Rajdhani', sans-serif;
+    color: var(--white);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Animated grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,180,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,180,255,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: gridPulse 8s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at 60% 30%, rgba(0,180,255,0.07) 0%, transparent 60%),
+                radial-gradient(ellipse at 20% 80%, rgba(0,100,200,0.06) 0%, transparent 50%);
+    animation: nebula 12s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @keyframes gridPulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+
+  @keyframes nebula {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(30px, -20px) scale(1.05); }
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 40px 20px 60px;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 48px;
+    animation: fadeDown 0.8s ease both;
+  }
+
+  .header-badge {
+    display: inline-block;
+    border: 1px solid var(--blue-neon);
+    color: var(--blue-neon-bright);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 9px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 12px rgba(0,180,255,0.25), inset 0 0 12px rgba(0,180,255,0.05);
+    animation: badgePulse 3s ease-in-out infinite;
+  }
+
+  @keyframes badgePulse {
+    0%, 100% { box-shadow: 0 0 12px rgba(0,180,255,0.25), inset 0 0 12px rgba(0,180,255,0.05); }
+    50% { box-shadow: 0 0 24px rgba(0,180,255,0.5), inset 0 0 20px rgba(0,180,255,0.1); }
+  }
+
+  .title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(22px, 5vw, 34px);
+    font-weight: 900;
+    letter-spacing: 2px;
+    line-height: 1.15;
+    color: var(--white);
+    text-shadow:
+      0 0 30px rgba(0,180,255,0.4),
+      0 0 60px rgba(0,180,255,0.15);
+    margin-bottom: 10px;
+  }
+
+  .title span {
+    color: var(--blue-neon-bright);
+    text-shadow:
+      0 0 20px rgba(0,212,255,0.8),
+      0 0 40px rgba(0,212,255,0.4);
+  }
+
+  .subtitle {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: 3px;
+    color: var(--white-dim);
+    text-transform: uppercase;
+  }
+
+  .divider {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--blue-neon), transparent);
+    margin: 20px auto;
+    animation: shimmer 2s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0%, 100% { opacity: 0.5; width: 80px; }
+    50% { opacity: 1; width: 140px; }
+  }
+
+  /* Tool Card */
+  .tool-card {
+    background: linear-gradient(135deg, rgba(10,26,53,0.95) 0%, rgba(13,42,74,0.9) 100%);
+    border: 1px solid rgba(0,180,255,0.15);
+    border-radius: 8px;
+    padding: 20px 22px;
+    margin-bottom: 14px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    animation: slideUp 0.5s ease both;
+  }
+
+  .tool-card:nth-child(1)  { animation-delay: 0.05s; }
+  .tool-card:nth-child(2)  { animation-delay: 0.10s; }
+  .tool-card:nth-child(3)  { animation-delay: 0.15s; }
+  .tool-card:nth-child(4)  { animation-delay: 0.20s; }
+  .tool-card:nth-child(5)  { animation-delay: 0.25s; }
+  .tool-card:nth-child(6)  { animation-delay: 0.30s; }
+  .tool-card:nth-child(7)  { animation-delay: 0.35s; }
+  .tool-card:nth-child(8)  { animation-delay: 0.40s; }
+  .tool-card:nth-child(9)  { animation-delay: 0.45s; }
+  .tool-card:nth-child(10) { animation-delay: 0.50s; }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .tool-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--blue-neon), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .tool-card:hover {
+    border-color: rgba(0,180,255,0.4);
+    box-shadow: 0 0 30px rgba(0,180,255,0.12), inset 0 0 20px rgba(0,180,255,0.04);
+    transform: translateY(-2px);
+  }
+
+  .tool-card:hover::before { opacity: 1; }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .tool-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+    background: rgba(0,180,255,0.08);
+    border: 1px solid rgba(0,180,255,0.2);
+  }
+
+  .tool-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 1.5px;
+  }
+
+  .tool-tag {
+    font-size: 10px;
+    color: var(--blue-neon);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 300;
+    margin-top: 2px;
+  }
+
+  /* Buttons */
+  .btn-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    flex: 1;
+    min-width: 90px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 8px 10px;
+    border-radius: 4px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    border: none;
+    outline: none;
+    white-space: nowrap;
+  }
+
+  .btn-android {
+    background: rgba(0,180,255,0.08);
+    color: var(--white);
+    border: 1px solid rgba(0,180,255,0.3);
+  }
+
+  .btn-android:hover {
+    background: rgba(0,180,255,0.18);
+    border-color: var(--blue-neon);
+    box-shadow: 0 0 12px rgba(0,180,255,0.3);
+    color: var(--blue-neon-bright);
+  }
+
+  .btn-iphone {
+    background: rgba(0,180,255,0.08);
+    color: var(--white);
+    border: 1px solid rgba(0,180,255,0.3);
+  }
+
+  .btn-iphone:hover {
+    background: rgba(0,180,255,0.18);
+    border-color: var(--blue-neon);
+    box-shadow: 0 0 12px rgba(0,180,255,0.3);
+    color: var(--blue-neon-bright);
+  }
+
+  .btn-web {
+    background: linear-gradient(135deg, rgba(0,180,255,0.25), rgba(0,136,204,0.35));
+    color: var(--blue-neon-bright);
+    border: 1px solid var(--blue-neon);
+    box-shadow: 0 0 10px rgba(0,180,255,0.2);
+  }
+
+  .btn-web:hover {
+    background: linear-gradient(135deg, rgba(0,180,255,0.4), rgba(0,136,204,0.5));
+    box-shadow: 0 0 20px rgba(0,180,255,0.5);
+    color: #fff;
+    transform: scale(1.03);
+  }
+
+  .btn svg {
+    width: 12px;
+    height: 12px;
+    fill: currentColor;
+    flex-shrink: 0;
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(0,180,255,0.1);
+  }
+
+  .footer-line {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.2);
+    text-transform: uppercase;
+    font-family: 'Orbitron', sans-serif;
+  }
+
+  /* Scan line effect */
+  .scan {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--blue-neon), transparent);
+    opacity: 0.3;
+    animation: scanLine 6s linear infinite;
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  @keyframes scanLine {
+    0%   { top: 0%; opacity: 0; }
+    5%   { opacity: 0.3; }
+    95%  { opacity: 0.3; }
+    100% { top: 100%; opacity: 0; }
+  }
+
+  @media (max-width: 420px) {
+    .btn { font-size: 10px; padding: 7px 8px; }
+    .title { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="scan"></div>
+
+<div class="container">
+
+  <div class="header">
+    <div class="header-badge">Ecossistema Digital</div>
+    <div class="title">Ferramentas<br><span>Estratégicas</span></div>
+    <div class="divider"></div>
+    <div class="subtitle">Por Adriele Almeida &nbsp;|&nbsp; Estrategista Digital</div>
+  </div>
+
+  <div class="tools-list">
+
+    <!-- ChatGPT -->
+    <div class="tool-card">
+      <div class="card-top">
+        <div class="tool-icon">🤖</div>
+        <div>
+          <div class="tool-name">ChatGPT</div>
+          <div class="tool-tag">IA Conversacional</div>
+        </div>
+      </div>
+      <div class="btn-row">
+        <a class="btn btn-android" href="https://play.google.com/store/apps/details?id=com.openai.chatgpt" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M17.523 15.341l-5.01-2.892-5.01 2.892 5.01-8.682 5.01 8.682zm-5.01 1.836l-5.52-3.187v-3.979l5.52 3.187v3.979zm1.02 0v-3.979l5.52-3.187v3.979l-5.52 3.187z"/></svg>
+          Android
+        </a>
+        <a class="btn btn-iphone" href="https://apps.apple.com/app/chatgpt/id6448311069" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          iPhone
+        </a>
+        <a class="btn btn-web" href="https://chat.openai.com" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+          Acessar Web
+        </a>
+      </div>
+    </div>
+
+    <!-- Gemini -->
+    <div class="tool-card">
+      <div class="card-top">
+        <div class="tool-icon">✨</div>
+        <div>
+          <div class="tool-name">Gemini</div>
+          <div class="tool-tag">IA Google</div>
+        </div>
+      </div>
+      <div class="btn-row">
+        <a class="btn btn-android" href="https://play.google.com/store/apps/details?id=com.google.android.apps.bard" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M17.523 15.341l-5.01-2.892-5.01 2.892 5.01-8.682 5.01 8.682zm-5.01 1.836l-5.52-3.187v-3.979l5.52 3.187v3.979zm1.02 0v-3.979l5.52-3.187v3.979l-5.52 3.187z"/></svg>
+          Android
+        </a>
+        <a class="btn btn-iphone" href="https://apps.apple.com/app/google-gemini/id6477489206" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          iPhone
+        </a>
+        <a class="btn btn-web" href="https://gemini.google.com" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+          Acessar Web
+        </a>
+      </div>
+    </div>
+
+    <!-- Grok -->
+    <div class="tool-card">
+      <div class="card-top">
+        <div class="tool-icon">⚡</div>
+        <div>
+          <div class="tool-name">Grok</div>
+          <div class="tool-tag">IA xAI</div>
+        </div>
+      </div>
+      <div class="btn-row">
+        <a class="btn btn-android" href="https://play.google.com/store/apps/details?id=ai.x.grok" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M17.523 15.341l-5.01-2.892-5.01 2.892 5.01-8.682 5.01 8.682zm-5.01 1.836l-5.52-3.187v-3.979l5.52 3.187v3.979zm1.02 0v-3.979l5.52-3.187v3.979l-5.52 3.187z"/></svg>
+          Android
+        </a>
+        <a class="btn btn-iphone" href="https://apps.apple.com/app/grok/id6670324846" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          iPhone
+        </a>
+        <a class="btn btn-web" href="https://grok.com" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+          Acessar Web
+        </a>
+      </div>
+    </div>
+
+    <!-- Claude -->
+    <div class="tool-card">
+      <div class="card-top">
+        <div class="tool-icon">🧠</div>
+        <div>
+          <div class="tool-name">Claude</div>
+          <div class="tool-tag">IA Anthropic</div>
+        </div>
+      </div>
+      <div class="btn-row">
+        <a class="btn btn-android" href="https://play.google.com/store/apps/details?id=com.anthropic.claude" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M17.523 15.341l-5.01-2.892-5.01 2.892 5.01-8.682 5.01 8.682zm-5.01 1.836l-5.52-3.187v-3.979l5.52 3.187v3.979zm1.02 0v-3.979l5.52-3.187v3.979l-5.52 3.187z"/></svg>
+          Android
+        </a>
+        <a class="btn btn-iphone" href="https://apps.apple.com/app/claude-by-anthropic/id6473753684" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          iPhone
+        </a>
+        <a class="btn btn-web" href="https://claude.ai" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+          Acessar Web
+        </a>
+      </div>
+    </div>
+
+    <!-- NotebookLM -->
+    <div class="tool-card">
+      <div class="card-top">
+        <div class="tool-icon">📓</div>
+        <div>
+          <div class="tool-name">NotebookLM</div>
+          <div class="tool-tag">IA de Pesquisa</div>
+        </div>
+      </div>
+      <div class="btn-row">
+        <a class="btn btn-android" href="https://play.google.com/store/apps/details?id=com.google.android.apps.notebooklm" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M17.523 15.341l-5.01-2.892-5.01 2.892 5.01-8.682 5.01 8.682zm-5.01 1.836l-5.52-3.187v-3.979l5.52 3.187v3.979zm1.02 0v-3.979l5.52-3.187v3.979l-5.52 3.187z"/></svg>
+          Android
+        </a>
+        <a class="btn btn-iphone" href="https://apps.apple.com/app/notebooklm/id6560605272" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          iPhone
+        </a>
+        <a class="btn btn-web" href="https://notebooklm.google.com" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+          Acessar Web
+        </a>
+      </div>
+    </div>
+
+    <!-- Manus IA -->
+    <div class="tool-card">
+      <div class="card-top">
+        <div class="tool-icon">🦾</div>
+        <div>
+          <div class="tool-name">Manus IA</div>
+          <div class="tool-tag">Agente Autônomo</div>
+        </div>
+      </div>
+      <div class="btn-row">
+        <a class="btn btn-android" href="https://play.google.com/store/search?q=manus+ai&c=apps" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M17.523 15.341l-5.01-2.892-5.01 2.892 5.01-8.682 5.01 8.682zm-5.01 1.836l-5.52-3.187v-3.979l5.52 3.187v3.979zm1.02 0v-3.979l5.52-3.187v3.979l-5.52 3.187z"/></svg>
+          Android
+        </a>
+        <a class="btn btn-iphone" href="https://apps.apple.com/search?term=manus+ai" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          iPhone
+        </a>
+        <a class="btn btn-web" href="https://manus.im" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+          Acessar Web
+        </a>
+      </div>
+    </div>
+
+    <!-- Canva -->
+    <div class="tool-card">
+      <div class="card-top">
+        <div class="tool-icon">🎨</div>
+        <div>
+          <div class="tool-name">Canva</div>
+          <div class="tool-tag">Design Visual</div>
+        </div>
+      </div>
+      <div class="btn-row">
+        <a class="btn btn-android" href="https://play.google.com/store/apps/details?id=com.canva.editor" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M17.523 15.341l-5.01-2.892-5.01 2.892 5.01-8.682 5.01 8.682zm-5.01 1.836l-5.52-3.187v-3.979l5.52 3.187v3.979zm1.02 0v-3.979l5.52-3.187v3.979l-5.52 3.187z"/></svg>
+          Android
+        </a>
+        <a class="btn btn-iphone" href="https://apps.apple.com/app/canva-design-photo-video/id897446215" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          iPhone
+        </a>
+        <a class="btn btn-web" href="https://www.canva.com" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+          Acessar Web
+        </a>
+      </div>
+    </div>
+
+    <!-- CapCut -->
+    <div class="tool-card">
+      <div class="card-top">
+        <div class="tool-icon">🎬</div>
+        <div>
+          <div class="tool-name">CapCut</div>
+          <div class="tool-tag">Edição de Vídeo</div>
+        </div>
+      </div>
+      <div class="btn-row">
+        <a class="btn btn-android" href="https://play.google.com/store/apps/details?id=com.lemon.lvoverseas" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M17.523 15.341l-5.01-2.892-5.01 2.892 5.01-8.682 5.01 8.682zm-5.01 1.836l-5.52-3.187v-3.979l5.52 3.187v3.979zm1.02 0v-3.979l5.52-3.187v3.979l-5.52 3.187z"/></svg>
+          Android
+        </a>
+        <a class="btn btn-iphone" href="https://apps.apple.com/app/capcut-video-editor/id1500855883" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          iPhone
+        </a>
+        <a class="btn btn-web" href="https://www.capcut.com" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+          Acessar Web
+        </a>
+      </div>
+    </div>
+
+    <!-- Notion -->
+    <div class="tool-card">
+      <div class="card-top">
+        <div class="tool-icon">📋</div>
+        <div>
+          <div class="tool-name">Notion</div>
+          <div class="tool-tag">Gestão & Organização</div>
+        </div>
+      </div>
+      <div class="btn-row">
+        <a class="btn btn-android" href="https://play.google.com/store/apps/details?id=notion.id" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M17.523 15.341l-5.01-2.892-5.01 2.892 5.01-8.682 5.01 8.682zm-5.01 1.836l-5.52-3.187v-3.979l5.52 3.187v3.979zm1.02 0v-3.979l5.52-3.187v3.979l-5.52 3.187z"/></svg>
+          Android
+        </a>
+        <a class="btn btn-iphone" href="https://apps.apple.com/app/notion-notes-docs-tasks/id1232780281" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          iPhone
+        </a>
+        <a class="btn btn-web" href="https://www.notion.so" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+          Acessar Web
+        </a>
+      </div>
+    </div>
+
+    <!-- GitHub -->
+    <div class="tool-card">
+      <div class="card-top">
+        <div class="tool-icon">💾</div>
+        <div>
+          <div class="tool-name">GitHub</div>
+          <div class="tool-tag">Repositório de Código</div>
+        </div>
+      </div>
+      <div class="btn-row">
+        <a class="btn btn-android" href="https://play.google.com/store/apps/details?id=com.github.android" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M17.523 15.341l-5.01-2.892-5.01 2.892 5.01-8.682 5.01 8.682zm-5.01 1.836l-5.52-3.187v-3.979l5.52 3.187v3.979zm1.02 0v-3.979l5.52-3.187v3.979l-5.52 3.187z"/></svg>
+          Android
+        </a>
+        <a class="btn btn-iphone" href="https://apps.apple.com/app/github/id1477376905" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          iPhone
+        </a>
+        <a class="btn btn-web" href="https://github.com" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+          Acessar Web
+        </a>
+      </div>
+    </div>
+
+  </div><!-- /tools-list -->
+
+  <div class="footer">
+    <div class="footer-line">Descodificado &nbsp;·&nbsp; @adrielealmeida.estrategista</div>
+  </div>
+
+</div>
+</body>
+</html>
